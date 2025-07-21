@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <title>Pobieranie gier</title>
+  <title>Pobierz grę</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -13,9 +13,12 @@
     input, button {
       padding: 10px;
       font-size: 16px;
+      margin-right: 10px;
     }
     #gameList {
       margin-top: 20px;
+      list-style-type: none;
+      padding: 0;
     }
     #gameList li {
       cursor: pointer;
@@ -37,27 +40,30 @@
   <ul id="gameList"></ul>
 
   <script>
-    // Przykładowa lista gier
+    // Lista gier - id odpowiada nazwie pliku w repozytorium (np. game1.zip)
     const games = [
       { id: 'game1', name: 'Gra 1' },
       { id: 'game2', name: 'Gra 2' },
       { id: 'game3', name: 'Gra 3' },
     ];
 
-    // Wypisz listę gier w HTML
     const gameListEl = document.getElementById('gameList');
+
+    // Wyświetl listę gier na stronie
     games.forEach(game => {
       const li = document.createElement('li');
-      li.textContent = game.name + ' (' + game.id + ')';
+      li.textContent = `${game.name} (${game.id})`;
       li.onclick = () => downloadById(game.id);
       gameListEl.appendChild(li);
     });
 
+    // Funkcja pobierająca plik na podstawie ID gry
     function downloadById(id) {
-      const url = `games/${id}.zip`; // zakładam, że gry są w folderze games i są zipami
+      const url = `${id}.zip`; // pliki są w katalogu głównym repozytorium
       window.location.href = url;
     }
 
+    // Pobieranie na podstawie wpisanego ID
     function downloadGame() {
       const input = document.getElementById('gameId');
       const id = input.value.trim();

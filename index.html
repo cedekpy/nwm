@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pobieranie gier</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 10px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+    }
+    #gameList {
+      margin-top: 20px;
+    }
+    #gameList li {
+      cursor: pointer;
+      margin: 5px 0;
+      color: blue;
+      text-decoration: underline;
+    }
+    #gameList li:hover {
+      color: darkblue;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pobierz grę po ID</h1>
+  <input type="text" id="gameId" placeholder="Wpisz ID gry np. game1" />
+  <button onclick="downloadGame()">Pobierz</button>
+
+  <h2>Dostępne gry</h2>
+  <ul id="gameList"></ul>
+
+  <script>
+    // Przykładowa lista gier
+    const games = [
+      { id: 'game1', name: 'Gra 1' },
+      { id: 'game2', name: 'Gra 2' },
+      { id: 'game3', name: 'Gra 3' },
+    ];
+
+    // Wypisz listę gier w HTML
+    const gameListEl = document.getElementById('gameList');
+    games.forEach(game => {
+      const li = document.createElement('li');
+      li.textContent = game.name + ' (' + game.id + ')';
+      li.onclick = () => downloadById(game.id);
+      gameListEl.appendChild(li);
+    });
+
+    function downloadById(id) {
+      const url = `games/${id}.zip`; // zakładam, że gry są w folderze games i są zipami
+      window.location.href = url;
+    }
+
+    function downloadGame() {
+      const input = document.getElementById('gameId');
+      const id = input.value.trim();
+      if (!id) {
+        alert('Wpisz ID gry!');
+        return;
+      }
+      downloadById(id);
+    }
+  </script>
+</body>
+</html>

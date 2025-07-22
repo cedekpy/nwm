@@ -93,6 +93,7 @@
       font-size: 0.9rem;
       color: var(--footer-color);
       margin-top: 20px;
+      white-space: pre-line;
     }
 
     footer {
@@ -116,6 +117,28 @@
     #themeToggle:hover {
       transform: scale(1.2);
     }
+
+    .feedback {
+      margin-top: 3rem;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .feedback h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: none;
+      resize: vertical;
+      outline: none;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
@@ -134,10 +157,19 @@
     Dołącz do Discorda
   </a>
 
-  <div class="administracja">Administracja
-  Cedek
-  Rax
-  Debra</div>
+  <!-- Formularz opinii -->
+  <div class="feedback">
+    <h2>Podziel się opinią</h2>
+    <textarea id="feedbackText" placeholder="Napisz swoją opinię..." rows="4"></textarea><br>
+    <button onclick="sendFeedback()">Wyślij opinię</button>
+  </div>
+
+  <div class="administracja">
+    Administracja<br>
+    Cedek<br>
+    Rax<br>
+    Debra
+  </div>
 
   <footer>
     © 2025 Cedek Rax. Wszelkie prawa zastrzeżone.
@@ -160,6 +192,38 @@
       document.body.classList.toggle('light');
       themeToggle.textContent = document.body.classList.contains('light') ? '🌙' : '☀️';
     });
+
+    function sendFeedback() {
+      const text = document.getElementById('feedbackText').value.trim();
+      if (!text) {
+        alert('Wpisz treść opinii!');
+        return;
+      }
+
+      const webhookURL = 'https://discord.com/api/webhooks/1397244659381571705/UJStqkQpH5S0Lu9IlpKd1P2g9AxN098TnUzuvH7s9lLWQL-8lRrJpuxUVGeWctUXoHNS';
+
+      fetch(webhookURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          content: `📩 Nowa opinia z formularza:\n\n${text}`
+        })
+      })
+      .then(response => {
+        if (response.ok) {
+          alert('Dzięki za opinię!');
+          document.getElementById('feedbackText').value = '';
+        } else {
+          alert('Błąd wysyłania opinii.');
+        }
+      })
+      .catch(error => {
+        console.error('Błąd:', error);
+        alert('Coś poszło nie tak.');
+      });
+    }
   </script>
 </body>
 </html>

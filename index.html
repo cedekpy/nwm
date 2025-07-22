@@ -4,29 +4,49 @@
   <meta charset="UTF-8" />
   <title>Pobierz grę</title>
   <style>
-  body {
-  background-color: #121212;
-  color: #eee;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  margin: 0;
-  text-align: center;
-  padding: 20px;
-  position: relative;
-}
+    :root {
+      --bg-color: #121212;
+      --text-color: #eee;
+      --button-bg: #1db954;
+      --button-text: #121212;
+      --footer-color: #888;
+    }
+
+    body.light {
+      --bg-color: #f4f4f4;
+      --text-color: #111;
+      --button-bg: #007bff;
+      --button-text: #fff;
+      --footer-color: #666;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      transition: background 0.3s, color 0.3s;
+    }
+
     h1 {
       font-size: 2.5rem;
       margin-bottom: 0.5rem;
     }
+
     p {
       font-size: 1.2rem;
       margin-top: 0;
       margin-bottom: 2rem;
     }
+
     input[type="text"] {
       padding: 10px;
       font-size: 1rem;
@@ -36,37 +56,73 @@
       margin-right: 10px;
       outline: none;
     }
+
     button {
       padding: 10px 20px;
       font-size: 1rem;
       border: none;
       border-radius: 5px;
-      background-color: #1db954;
-      color: #121212;
+      background-color: var(--button-bg);
+      color: var(--button-text);
       font-weight: bold;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
+
     button:hover {
-      background-color: #17a74a;
+      opacity: 0.9;
     }
+
     a {
-      color: #1db954;
+      color: var(--button-bg);
       text-decoration: none;
       font-weight: bold;
       font-size: 1.2rem;
       margin-top: 3rem;
     }
+
     a:hover {
       text-decoration: underline;
     }
+
     .download-section {
       margin-bottom: 2rem;
+    }
+
+    .administracja {
+      font-size: 0.9rem;
+      color: var(--footer-color);
+      margin-top: 20px;
+    }
+
+    footer {
+      font-size: 0.9rem;
+      color: var(--footer-color);
+      margin-top: 10px;
+    }
+
+    #themeToggle {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text-color);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    #themeToggle:hover {
+      transform: scale(1.2);
     }
   </style>
 </head>
 <body>
-  <h1>Pobierz grę nyggusie i graj :)</h1>
+  <!-- Przycisk zmiany motywu -->
+  <button id="themeToggle" title="Zmień motyw">🌙</button>
+
+  <h1>Pobierz grę</h1>
   
   <div class="download-section">
     <input type="text" id="gameId" placeholder="Wpisz ID gry np. game1" />
@@ -74,14 +130,14 @@
   </div>
 
   <p>Listę gier znajdziesz na naszym Discordzie.</p>
-  <a href="https://dc.gg/cedek" target="_blank" rel="noopener noreferrer">
+  <a href="https://discord.gg/twoj-link" target="_blank" rel="noopener noreferrer">
     Dołącz do Discorda
   </a>
-  <div class="Właściciele">Właściciele to 
-  Debra :3(cedek.aep)
-  Raxonek(_raxonklakson_)</div>
-<footer>
-    © 2025 Cedekpy. Wszelkie prawa zastrzeżone.
+
+  <div class="administracja">Administracja</div>
+
+  <footer>
+    © 2025 TwojaNazwa. Wszelkie prawa zastrzeżone.
   </footer>
 
   <script>
@@ -92,10 +148,15 @@
         alert('Wpisz ID gry!');
         return;
       }
-      const url = `${id}.zip`; // Pliki w głównym katalogu repozytorium
-      // Próba pobrania pliku przez zmianę lokalizacji strony
+      const url = `${id}.zip`;
       window.location.href = url;
     }
+
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      themeToggle.textContent = document.body.classList.contains('light') ? '🌙' : '☀️';
+    });
   </script>
 </body>
 </html>

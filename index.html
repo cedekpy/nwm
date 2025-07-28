@@ -334,6 +334,21 @@
     </div>
 
   </div>
+  <div id="admin-panel" style="display:none; margin-top: 30px; border-top: 1px solid #333; padding-top: 20px;">
+  <h2>🛠️ Panel Administratora</h2>
+  <p>Witaj, Cedek! Tutaj możesz zarządzać zawartością strony.</p>
+  <button onclick="alert('Tu będzie przyszła funkcja dodawania gier')">+ Dodaj nową grę</button>
+  <button onclick="alert('Tu będzie lista opinii z webhooka')">📬 Zobacz opinie</button>
+</div>
+
+<script>
+  // Sprawdza, czy w URL jest ?admin123
+  const params = new URLSearchParams(window.location.search);
+  if (params.has("admin123")) {
+    document.getElementById("admin-panel").style.display = "block";
+  }
+</script>
+
 </body>
 </html>
 
